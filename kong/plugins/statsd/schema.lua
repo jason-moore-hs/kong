@@ -19,6 +19,7 @@ return {
       default = metrics,
       enum = metrics
     },
-    timeout = {type = "number", default = 10000}
+    timeout = {type = "number", default = 10000},
+    log_plugin_errors = { type = "boolean" }
   }
 }

@@ -53,6 +53,7 @@ init_by_lua_block {
     kong.init()
 }
 
+
 init_worker_by_lua_block {
     kong.init_worker()
 }
@@ -76,6 +77,7 @@ server {
     location / {
         set $upstream_host nil;
         set $upstream_url nil;
+        set $premature_exit false;
 
         access_by_lua_block {
             kong.access()

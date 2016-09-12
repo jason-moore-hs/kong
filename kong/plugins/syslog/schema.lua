@@ -6,5 +6,6 @@ return {
     successful_severity = { type = "string", enum = ALLOWED_LEVELS, default = "info" },
     client_errors_severity = { type = "string", enum = ALLOWED_LEVELS, default = "info" },
     server_errors_severity = { type = "string", enum = ALLOWED_LEVELS, default = "info" },
+    log_plugin_errors = { type = "boolean" }
   }
 }

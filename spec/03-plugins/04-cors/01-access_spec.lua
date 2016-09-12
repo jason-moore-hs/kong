@@ -56,7 +56,7 @@ describe("Plugin: cors (access)", function()
   end)
 
   describe("HTTP method: OPTIONS", function()
-    it("gives appropriate defaults", function()
+    it("#only gives appropriate defaults", function()
       local res = assert(client:send {
         method = "OPTIONS",
         headers = {

@@ -39,7 +39,8 @@ return {
           response_size = {type = "array", default = {}, func = check_for_value},
           unique_users = {type = "array", default = {}, func = check_for_value},
           request_per_user = {type = "array", default = {}, func = check_for_value},
-          upstream_latency = {type = "array", default = {}, func = check_for_value}
+          upstream_latency = {type = "array", default = {}, func = check_for_value},
+          log_plugin_errors = { type = "boolean" }
         }
       }
     },

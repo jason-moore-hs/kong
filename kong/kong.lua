@@ -153,15 +153,20 @@ function Kong.ssl_certificate()
   core.certificate.before()
 
   for plugin, plugin_conf in plugins_iterator(singletons.loaded_plugins, true) do
-    plugin.handler:certificate(plugin_conf)
+    if ngx.var.premature_exit ~= true then
+      plugin.handler:certificate(plugin_conf)
+    end
   end
+  
 end
 
 function Kong.access()
   core.access.before()
 
   for plugin, plugin_conf in plugins_iterator(singletons.loaded_plugins, true) do
-    plugin.handler:access(plugin_conf)
+    if ngx.var.premature_exit ~= true then
+      plugin.handler:access(plugin_conf)
+    end
   end
 
   core.access.after()
@@ -171,15 +176,19 @@ function Kong.header_filter()
   core.header_filter.before()
 
   for plugin, plugin_conf in plugins_iterator(singletons.loaded_plugins) do
-    plugin.handler:header_filter(plugin_conf)
+    if ngx.var.premature_exit ~= true then
+      plugin.handler:header_filter(plugin_conf)
+    end
   end
-
+  
   core.header_filter.after()
 end
 
 function Kong.body_filter()
   for plugin, plugin_conf in plugins_iterator(singletons.loaded_plugins) do
-    plugin.handler:body_filter(plugin_conf)
+    if ngx.var.premature_exit ~= true then
+      plugin.handler:body_filter(plugin_conf)
+    end
   end
 
   core.body_filter.after()
@@ -187,7 +196,9 @@ end
 
 function Kong.log()
   for plugin, plugin_conf in plugins_iterator(singletons.loaded_plugins) do
-    plugin.handler:log(plugin_conf)
+    if ngx.var.premature_exit ~= true or (ngx.var.premature_exit == true and plugin_conf.log_plugin_errors) then 
+      plugin.handler:log(plugin_conf)
+    end
   end
 
   core.log.after()

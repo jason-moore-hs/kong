@@ -122,7 +122,9 @@ local function send_response(status_code)
       ngx.say(cjson.encode {message = content})
     end
 
-    return ngx.exit(status_code)
+    ngx.var.premature_exit = true
+
+    return ngx.exit(0)
   end
 end
 

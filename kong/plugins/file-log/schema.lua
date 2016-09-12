@@ -11,6 +11,7 @@ end
 
 return {
   fields = {
-    path = { required = true, type = "string", func = validate_file }
+    path = { required = true, type = "string", func = validate_file },
+    log_plugin_errors = { type = "boolean" }
   }
 }

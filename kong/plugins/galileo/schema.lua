@@ -10,6 +10,7 @@ return {
     host = {type = "string", required = true, default = "collector.galileo.mashape.com"},
     port = {type = "number", required = true, default = 443},
     https = {type = "boolean", default = true},
-    https_verify = {type = "boolean", default = false}
+    https_verify = {type = "boolean", default = false},
+    log_plugin_errors = { type = "boolean" }
   }
 }
