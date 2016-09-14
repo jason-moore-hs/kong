@@ -182,7 +182,7 @@ function Kong.content()
   for k, v in pairs(res.header) do
     ngx.header[k] = v
   end
-  ngx.say(res.body)
+  ngx.print(res.body)
 end
 
 function Kong.header_filter()

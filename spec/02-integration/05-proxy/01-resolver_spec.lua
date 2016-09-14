@@ -104,22 +104,7 @@ describe("Resolver", function()
   end)
 
   describe("proxying by request_host", function()
-    it("#only proxies request", function()
-      local res = assert(client:send {
-        method = "GET",
-        path = "/request",
-        headers = {
-          ["Host"] = "mockbin.com"
-        }
-      })
-      local body = cjson.decode(assert.res_status(200, res))
-      assert.is_string(body.url)
-      assert.is_string(body.method)
-      assert.is_string(body.httpVersion)
-      assert.equal("cloudflare-nginx", res.headers.Server)
-
-      print(require("inspect")(res.headers))
-
+    it("proxies request", function()
       local res = assert(client:send {
         method = "GET",
         path = "/request",
