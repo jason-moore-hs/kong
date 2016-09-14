@@ -73,6 +73,17 @@ server {
     }
 > end
 
+    location /proxy {
+        internal;
+
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $upstream_host;
+        proxy_pass_header Server;
+        proxy_pass $upstream_url;
+    }
+
     location / {
         set $upstream_host nil;
         set $upstream_url nil;
@@ -81,12 +92,9 @@ server {
             kong.access()
         }
 
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header Host $upstream_host;
-        proxy_pass_header Server;
-        proxy_pass $upstream_url;
+        content_by_lua_block {
+            kong.content()
+        }
 
         header_filter_by_lua_block {
             kong.header_filter()

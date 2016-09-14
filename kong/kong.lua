@@ -167,6 +167,24 @@ function Kong.access()
   core.access.after()
 end
 
+function Kong.content()
+  ngx.req.read_body()
+
+  -- Proxy request
+  local res = ngx.location.capture("/proxy", {
+    method = ngx["HTTP_"..ngx.req.get_method()],
+    copy_all_vars = true,
+    always_forward_body = true
+  })
+
+  -- Send output to client
+  ngx.status = res.status
+  for k, v in pairs(res.header) do
+    ngx.header[k] = v
+  end
+  ngx.say(res.body)
+end
+
 function Kong.header_filter()
   core.header_filter.before()
 
