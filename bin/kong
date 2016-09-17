@@ -1,5 +1,7 @@
 #!/usr/bin/env resty
 
+ngx.RESTY_CLI = true
+
 -- force LuaSocket usage to resolve `/etc/hosts` until
 -- supported by resty-cli.
 -- See https://github.com/Mashape/kong/issues/1523
@@ -9,3 +11,4 @@ for _, namespace in ipairs({"cassandra", "pgmoon-mashape"}) do
 end
 
 require("kong.cmd.init")(arg)
+ 
